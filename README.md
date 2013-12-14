@@ -24,7 +24,7 @@ STEP 1 :  Create a sample project with any name like WelcomeApp
          |-->build.properties
          
          
-STEP 2 : Change project in build.xml file
+STEP 2 : Change project name to WelcomeApp in build.xml file
          
          <project name="WelcomeApp" basedir="." default="usage">
          
