@@ -9,7 +9,7 @@
     <property name="name" value="WelcomeApp"/>
 
     <path id="master-classpath">
-        <fileset dir="WEB-INF/lib">
+        <fileset dir="${web.dir}/WEB-INF/lib">
             <include name="*.jar"/>
         </fileset>
         <!-- We need the servlet API classes: -->
@@ -32,8 +32,8 @@
         <echo message="deploy    --> Deploy application as directory"/>
         <echo message="deploywar --> Deploy application as a WAR file"/>
         
- 	<echo message="tomcat-start ---> Start the Tomcat Server "/>
-    	<echo message="tomcat-stop  ---> Stop the Tomcat Server "/>
+ 		<echo message="tomcat-start   --->Starting Tomcat "/>
+    	<echo message="tomcat-stop  ---> Stop Tomcat "/>
     	
         <echo message="reload    --> Reload application in Tomcat"/>
         <echo message="start     --> Start Tomcat application"/>
@@ -45,34 +45,34 @@
     <target name="build" description="Compile main source tree java files">
         <mkdir dir="${build.dir}"/>
         <javac destdir="${build.dir}" source="1.5" target="1.5" debug="true"
-               deprecation="false" optimize="false" failonerror="true">
+               deprecation="false" optimize="false" failonerror="true" includeantruntime="false">
             <src path="${src.dir}"/>
             <classpath refid="master-classpath"/>
         </javac>
     </target>
 
 	<target name="tomcat-start">
-	        <echo>---------------------------------------</echo>
-	        <echo>- target - tomcat-start</echo>
-	        <echo>-</echo>
-	        <echo>- starting tomcat</echo>
-	        <echo>---------------------------------------</echo>
+		        <echo>---------------------------------------</echo>
+		        <echo>- target - tomcat-start</echo>
+		        <echo>-</echo>
+		        <echo>- starting tomcat</echo>
+		        <echo>---------------------------------------</echo>
 
-	  <java classname="org.apache.catalina.startup.Bootstrap" failonerror="true" fork="true">
-	            <classpath path="${appserver.home}/bin/bootstrap.jar:${appserver.home}/bin/tomcat-juli.jar" />
+		  <java classname="org.apache.catalina.startup.Bootstrap" failonerror="true" fork="true">
+		            <classpath path="${appserver.home}/bin/bootstrap.jar:${appserver.home}/bin/tomcat-juli.jar" />
 
-	            <jvmarg value="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager" />
-	   <jvmarg value="-Djava.util.logging.config.file=${appserver.home}/conf/logging.properties" />
+		            <jvmarg value="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager" />
+		   <jvmarg value="-Djava.util.logging.config.file=${appserver.home}/conf/logging.properties" />
 
-	            <jvmarg value="-Dcatalina.home=${appserver.home}" />
-	            <jvmarg value="-Dcatalina.base=${appserver.home}" />
+		            <jvmarg value="-Dcatalina.home=${appserver.home}" />
+		            <jvmarg value="-Dcatalina.base=${appserver.home}" />
 
-	            <jvmarg value="-Djava.io.tmpdir=${appserver.home}/temp" />
+		            <jvmarg value="-Djava.io.tmpdir=${appserver.home}/temp" />
 
-	   <arg line="start" />
-	  </java>
+		   <arg line="start" />
+		  </java>
 
-	    </target>
+		    </target>
 	
 	<target name="tomcat-stop">
 	        <echo>---------------------------------------</echo>
@@ -166,7 +166,7 @@
     </target>
 
     <target name="list" description="List Tomcat applications">
-        <list url="${tomcat.manager.url}/text"
+        <list url="${tomcat.manager.url}"
                  username="${tomcat.manager.username}"
                  password="${tomcat.manager.password}"/>
     </target>
