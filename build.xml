@@ -32,8 +32,9 @@
         <echo message="deploy    --> Deploy application as directory"/>
         <echo message="deploywar --> Deploy application as a WAR file"/>
         
- 		<echo message="tomcat-start   --->Starting Tomcat "/>
-    	<echo message="tomcat-stop  ---> Stop Tomcat "/>
+ 	<echo message="tomcat-start ---> Start the Tomcat Server "/>
+    	<echo message="tomcat-stop  ---> Stop the Tomcat Server "/>
+    	
         <echo message="reload    --> Reload application in Tomcat"/>
         <echo message="start     --> Start Tomcat application"/>
         <echo message="stop      --> Stop Tomcat application"/>
@@ -58,15 +59,15 @@
 	        <echo>---------------------------------------</echo>
 
 	  <java classname="org.apache.catalina.startup.Bootstrap" failonerror="true" fork="true">
-	            <classpath path="${apache.tomcat7}/bin/bootstrap.jar:${apache.tomcat7}/bin/tomcat-juli.jar" />
+	            <classpath path="${appserver.home}/bin/bootstrap.jar:${appserver.home}/bin/tomcat-juli.jar" />
 
 	            <jvmarg value="-Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager" />
-	   <jvmarg value="-Djava.util.logging.config.file=${apache.tomcat7}/conf/logging.properties" />
+	   <jvmarg value="-Djava.util.logging.config.file=${appserver.home}/conf/logging.properties" />
 
-	            <jvmarg value="-Dcatalina.home=${apache.tomcat7}" />
-	            <jvmarg value="-Dcatalina.base=${apache.tomcat7}" />
+	            <jvmarg value="-Dcatalina.home=${appserver.home}" />
+	            <jvmarg value="-Dcatalina.base=${appserver.home}" />
 
-	            <jvmarg value="-Djava.io.tmpdir=${apache.tomcat7}/temp" />
+	            <jvmarg value="-Djava.io.tmpdir=${appserver.home}/temp" />
 
 	   <arg line="start" />
 	  </java>
